@@ -11,5 +11,6 @@
 1. Add  tomato soup to Basket
 2. Add **Sea Food salad** which costs **$12.00**
 3. Add **3** chocolate ice cream to Basket which cost **4$** 
-
-##### Links: 
+4. Remove **3** chocolate ice cream
+5. Duplicate basket
+6. Calculate total price
