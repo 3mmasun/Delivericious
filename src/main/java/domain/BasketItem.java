@@ -16,4 +16,8 @@ public class BasketItem {
     public int getQuantity() {
         return quantity;
     }
+
+    public MenuItem getMenuItem() {
+        return menuItem;
+    }
 }

@@ -1,6 +1,7 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 
 class BasketTest {
@@ -29,5 +30,18 @@ class BasketTest {
         BasketItem basketItem = new BasketItem(item, 3);
         basket.add(basketItem);
         assertEquals(3, basket.totalItem());
+        assertEquals(12.0, basket.totalPrice());
+    }
+
+    @Test
+    void testDuplicateBasket() {
+        Basket basket = new Basket();
+        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        BasketItem basketItem = new BasketItem(item, 3);
+        basket.add(basketItem);
+        Basket newBasket = basket.duplicate();
+        assertEquals(3, newBasket.totalItem());
+        assertNotEquals(basket, newBasket);
+        assertNotEquals(basket.basketItems(), newBasket.basketItems());
     }
 }
