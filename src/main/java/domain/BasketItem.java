@@ -1,23 +1,19 @@
 package domain;
 
 public class BasketItem {
-    private String name;
-    private double price;
+    private MenuItem menuItem;
+    private int quantity;
 
-    public BasketItem(String name, double price) {
-        this.name = name;
-        this.price = price;
+    public BasketItem(MenuItem menuItem) {
+        this(menuItem, 1);
     }
 
-    public BasketItem(String name) {
-        this.name = name;
+    public BasketItem(MenuItem menuItem, int quantity) {
+        this.menuItem = menuItem;
+        this.quantity = quantity;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
+    public int getQuantity() {
+        return quantity;
     }
 }

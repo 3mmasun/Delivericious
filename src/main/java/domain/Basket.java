@@ -14,22 +14,9 @@ public class Basket {
     }
 
     public int totalItem(){
-        return this.items.size();
+        return this.items.stream()
+                .map(item->item.getQuantity())
+                .reduce(0, Integer::sum);
     }
 
-    public double totalPrice() {
-        return items.stream()
-                .map(BasketItem::getPrice)
-                .reduce(0.0, Double::sum);
-    }
-
-    public void addItems(List<BasketItem> items) {
-        this.items.addAll(items);
-    }
-
-    public void addItemWithQuantity(BasketItem item, int quantity) {
-        for (int i = 0; i < quantity; i++){
-            addItems(Collections.singletonList(item));
-        }
-    }
 }

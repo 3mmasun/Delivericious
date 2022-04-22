@@ -6,27 +6,28 @@ import org.junit.jupiter.api.Test;
 class BasketTest {
     @Test
     void testAddTomatoSoup(){
-        BasketItem item = new BasketItem("Tomato Soup");
         Basket basket = new Basket();
-        basket.add(item);
+        MenuItem item = new MenuItem("Tomato Soup");
+        BasketItem basketItem = new BasketItem(item);
+        basket.add(basketItem);
         assertEquals(1, basket.totalItem());
     }
 
     @Test
     void testAddItemWithPrice() {
         Basket basket = new Basket();
-        BasketItem item = new BasketItem("Sea Food salad", 12.0);
-        basket.add(item);
+        MenuItem item = new MenuItem("Sea Food salad", 12.0);
+        BasketItem basketItem = new BasketItem(item);
+        basket.add(basketItem);
         assertEquals(1, basket.totalItem());
-        assertEquals(12.0, basket.totalPrice());
     }
 
     @Test
     void testAddThreeChocolateIcecream() {
         Basket basket = new Basket();
-        BasketItem item = new BasketItem("Chocolate ice cream", 4.0);
-        basket.addItemWithQuantity(item, 3);
+        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        BasketItem basketItem = new BasketItem(item, 3);
+        basket.add(basketItem);
         assertEquals(3, basket.totalItem());
-        assertEquals(12.0, basket.totalPrice());
     }
 }
