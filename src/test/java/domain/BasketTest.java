@@ -1,7 +1,6 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class BasketTest {
@@ -22,4 +21,12 @@ class BasketTest {
         assertEquals(12.0, basket.totalPrice());
     }
 
+    @Test
+    void testAddThreeChocolateIcecream() {
+        Basket basket = new Basket();
+        BasketItem item = new BasketItem("Chocolate ice cream", 4.0);
+        basket.addItemWithQuantity(item, 3);
+        assertEquals(3, basket.totalItem());
+        assertEquals(12.0, basket.totalPrice());
+    }
 }

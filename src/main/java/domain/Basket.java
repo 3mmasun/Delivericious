@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Basket {
     private List<BasketItem> items;
@@ -25,4 +23,13 @@ public class Basket {
                 .reduce(0.0, Double::sum);
     }
 
+    public void addItems(List<BasketItem> items) {
+        this.items.addAll(items);
+    }
+
+    public void addItemWithQuantity(BasketItem item, int quantity) {
+        for (int i = 0; i < quantity; i++){
+            addItems(Collections.singletonList(item));
+        }
+    }
 }
