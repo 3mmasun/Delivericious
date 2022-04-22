@@ -1,21 +1,24 @@
 package domain;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Basket {
     private List<BasketItem> basketItems;
     private double totalPrice;
+    private final UUID id;
+
+    public UUID id() {
+        return id;
+    }
 
     public Basket() {
         this.basketItems = new ArrayList<>();
+        this.id = UUID.randomUUID();
     }
 
     public void setBasketItems(List<BasketItem> basketItems) {
         this.basketItems = basketItems;
-    }
-
-    public List<BasketItem> basketItems() {
-        return basketItems;
     }
 
     public void add(BasketItem item) {
@@ -31,18 +34,17 @@ public class Basket {
                 .reduce(0, Integer::sum);
     }
 
-    public Basket duplicate() {
+    public Basket repeat() {
         Basket newBasket = new Basket();
-        List<BasketItem> items = new ArrayList<>();
-        for (BasketItem item: basketItems){
-            BasketItem newItem = new BasketItem(item.getMenuItem(), item.getQuantity());
-            items.add(newItem);
-        }
-        newBasket.setBasketItems(items);
+        List<BasketItem> newBasketItems = this.basketItems.stream()
+                .map(i->new BasketItem(i.getMenuItem(), i.getQuantity()))
+                .collect(Collectors.toList());
+        newBasket.setBasketItems(newBasketItems);
         return newBasket;
     }
 
     public double totalPrice() {
         return this.totalPrice;
     }
+
 }

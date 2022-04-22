@@ -39,9 +39,7 @@ class BasketTest {
         MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
         BasketItem basketItem = new BasketItem(item, 3);
         basket.add(basketItem);
-        Basket newBasket = basket.duplicate();
-        assertEquals(3, newBasket.totalItem());
-        assertNotEquals(basket, newBasket);
-        assertNotEquals(basket.basketItems(), newBasket.basketItems());
+        Basket newBasket = basket.repeat();
+        assertNotEquals(basket.id(), newBasket.id());
     }
 }
