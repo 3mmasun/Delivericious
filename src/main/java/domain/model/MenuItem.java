@@ -28,7 +28,7 @@ public class MenuItem {
         this.category = category;
     }
 
-    public double getPrice() {
+    public double price() {
         return this.money.getAmount();
     }
 
@@ -36,7 +36,7 @@ public class MenuItem {
         return id;
     }
 
-    public Category getCategory() {
+    public Category category() {
         return category;
     }
 }

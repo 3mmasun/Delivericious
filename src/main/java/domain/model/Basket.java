@@ -2,7 +2,6 @@ package domain.model;
 
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.exception.MenuItemNotInBasketException;
@@ -10,7 +9,7 @@ import domain.exception.MenuItemNotInBasketException;
 public class Basket {
     private Map<UUID, BasketItem> basketItemList;
     private final UUID id;
-    private static final int DEFAULT_QUANTITY = 1;
+    private static final short DEFAULT_QUANTITY = 1;
     private static final int MAX_QUANTITY = 100;
 
     public Basket() {
@@ -60,10 +59,10 @@ public class Basket {
     public Basket repeat() {
         Basket newBasket = new Basket();
         List<BasketItem> newBasketItems = this.basketItemList.values().stream()
-                .map(i -> new BasketItem(i.getMenuItem(), i.getQuantity()))
+                .map(i -> new BasketItem(i.item(), i.itemQuantity()))
                 .collect(Collectors.toList());
         Map<UUID, BasketItem> newList = new HashMap<>();
-        newBasketItems.forEach(i -> newList.put(i.getMenuItem().id(), i));
+        newBasketItems.forEach(i -> newList.put(i.item().id(), i));
         newBasket.setBasketItemList(newList);
         return newBasket;
     }
@@ -79,7 +78,7 @@ public class Basket {
     }
 
     private Integer totalQuantity() {
-        return this.basketItemList.values().stream().map(BasketItem::getQuantity).reduce(0, Integer::sum);
+        return this.basketItemList.values().stream().map(BasketItem::itemQuantity).reduce(0, Integer::sum);
     }
 
     private boolean basketContains(MenuItem menuItem) {

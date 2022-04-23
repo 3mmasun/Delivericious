@@ -9,11 +9,7 @@ public class Coupon {
         this.discount = discount;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public double getDiscount() {
+    public double discount() {
         return discount;
     }
 }

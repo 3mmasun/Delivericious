@@ -11,30 +11,30 @@ public class BasketItem {
         increaseQuantity(quantity);
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public MenuItem getMenuItem() {
-        return menuItem;
-    }
-
     public void increaseQuantity(int quantity) {
         this.quantity += quantity;
     }
 
-    public int reduceQuantity(int quantity) {
+    public int reduceQuantity(short quantity) {
         if (this.quantity < quantity)
             throw new MenuItemQuantityReduceException();
         this.quantity -= quantity;
         return this.quantity;
     }
 
+    public MenuItem item() {
+        return menuItem;
+    }
+
+    public int itemQuantity() {
+        return quantity;
+    }
+
     public double itemTotalPrice(){
-        return this.menuItem.getPrice() * this.quantity;
+        return this.menuItem.price() * this.quantity;
     }
 
     public Category itemCategory(){
-        return menuItem.getCategory();
+        return menuItem.category();
     }
 }

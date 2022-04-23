@@ -19,6 +19,7 @@
 9. if basket has more than 5 soup, suggest coupon DELIVERICIOUS_10 WITH 10% discount percentage if available
    (assuming available coupons as input, assuming tomato soup is is a SOUP category)
    (Implement in a new test case)
+10. 
 
 todo:
 implement money
@@ -42,5 +43,7 @@ Repository
 - diff vs springboot, repository in DDD is a concept, not just save 1 table but all related entities too
 
 Domain Service
-- orchestrate funtionality across numerous aggregates
-- 
+- should be stateless
+- orchestrate functionality across numerous aggregates
+- only operation without a natural place can be in service
+- if operation need to be tracked with ID, then it's an entity not a service
