@@ -37,7 +37,9 @@ class BasketTest {
         MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
         basket.addWithQuantity(item, 3);
         basket.remove(item);
-        assertEquals(8.0, basket.totalPrice());
+        basket.remove(item);
+        basket.remove(item);
+        assertEquals(0, basket.totalBasketItem());
     }
 
     @Test
@@ -46,6 +48,7 @@ class BasketTest {
         basket.addWithQuantity(item, 3);
         Basket newBasket = basket.repeat();
         assertNotEquals(basket.id(), newBasket.id());
+        assertEquals(basket.totalPrice(), newBasket.totalPrice());
     }
 
     @Test

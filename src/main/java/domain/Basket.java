@@ -66,6 +66,10 @@ public class Basket {
                 .reduce(0.0, Double::sum);
     }
 
+    public int totalBasketItem() {
+        return this.basketItemList.size();
+    }
+
     public void remove(MenuItem menuItem) {
         if (basketContains(menuItem)) {
             int itemQuantity = this.basketItemList.get(menuItem.id()).reduceQuantity(DEFAULT_QUANTITY);
