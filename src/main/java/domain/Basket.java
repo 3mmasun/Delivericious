@@ -41,12 +41,15 @@ public class Basket {
         return menuItem.id();
     }
 
-    private Integer totalQuantity() {
-        return this.basketItemList.values().stream().map(BasketItem::getQuantity).reduce(0, Integer::sum);
-    }
-
-    private boolean basketContains(MenuItem menuItem) {
-        return this.basketItemList.containsKey(menuItem.id());
+    public void remove(MenuItem menuItem) {
+        if (basketContains(menuItem)) {
+            int itemQuantity = this.basketItemList.get(menuItem.id()).reduceQuantity(DEFAULT_QUANTITY);
+            if (itemQuantity == 0) {
+                this.basketItemList.remove(menuItem.id());
+            }
+        }
+        else
+            throw new MenuItemNotInBasketException();
     }
 
     public Basket repeat() {
@@ -70,14 +73,12 @@ public class Basket {
         return this.basketItemList.size();
     }
 
-    public void remove(MenuItem menuItem) {
-        if (basketContains(menuItem)) {
-            int itemQuantity = this.basketItemList.get(menuItem.id()).reduceQuantity(DEFAULT_QUANTITY);
-            if (itemQuantity == 0) {
-                this.basketItemList.remove(menuItem.id());
-            }
-        }
-        else
-            throw new MenuItemNotInBasketException();
+    private Integer totalQuantity() {
+        return this.basketItemList.values().stream().map(BasketItem::getQuantity).reduce(0, Integer::sum);
     }
+
+    private boolean basketContains(MenuItem menuItem) {
+        return this.basketItemList.containsKey(menuItem.id());
+    }
+
 }
