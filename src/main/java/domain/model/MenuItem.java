@@ -1,20 +1,14 @@
 package domain.model;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
-public class MenuItem {
-    private String name;
-    private final UUID id;
+public class MenuItem extends DelivericiousEntity {
+    private final String name;
     private Money money;
     private MenuItemCategory category;
 
-    public MenuItem() {
-        this.id = UUID.randomUUID();
-    }
-
     public MenuItem(String name) {
-        this();
+        super();
         this.name = name;
     }
 
@@ -31,10 +25,6 @@ public class MenuItem {
 
     public BigDecimal price() {
         return this.money.getAmount();
-    }
-
-    public UUID id() {
-        return id;
     }
 
     public MenuItemCategory category() {

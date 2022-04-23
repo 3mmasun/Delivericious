@@ -7,25 +7,20 @@ import java.util.stream.Collectors;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.exception.MenuItemNotInBasketException;
 
-public class Basket {
+public class Basket extends DelivericiousEntity {
     private Map<UUID, BasketItem> basketItemList;
     private BasketStatus status;
-    private final UUID id;
     private static final short DEFAULT_QUANTITY = 1;
     private static final int MAX_QUANTITY = 100;
 
     public Basket() {
-        this.id = UUID.randomUUID();
+        super();
         this.basketItemList = new HashMap<>();
         this.status = BasketStatus.NEW;
     }
 
     public Collection<BasketItem> basketItems() {
         return this.basketItemList.values();
-    }
-
-    public UUID id() {
-        return id;
     }
 
     public void setBasketItemList(Map<UUID, BasketItem> basketItemList) {
@@ -40,19 +35,19 @@ public class Basket {
         if (totalQuantity() == MAX_QUANTITY)
             throw new BasketExceedMaxQuantityException();
         if (basketContains(menuItem))
-            this.basketItemList.get(menuItem.id()).increaseQuantity(quantity);
+            this.basketItemList.get(menuItem.uuid()).increaseQuantity(quantity);
         else {
             BasketItem basketItem = new BasketItem(menuItem, quantity);
-            this.basketItemList.put(menuItem.id(), basketItem);
+            this.basketItemList.put(menuItem.uuid(), basketItem);
         }
-        return menuItem.id();
+        return menuItem.uuid();
     }
 
     public void remove(MenuItem menuItem) {
         if (basketContains(menuItem)) {
-            int itemQuantity = this.basketItemList.get(menuItem.id()).reduceQuantity(DEFAULT_QUANTITY);
+            int itemQuantity = this.basketItemList.get(menuItem.uuid()).reduceQuantity(DEFAULT_QUANTITY);
             if (itemQuantity == 0) {
-                this.basketItemList.remove(menuItem.id());
+                this.basketItemList.remove(menuItem.uuid());
             }
         }
         else
@@ -65,7 +60,7 @@ public class Basket {
                 .map(i -> new BasketItem(i.item(), i.itemQuantity()))
                 .collect(Collectors.toList());
         Map<UUID, BasketItem> newList = new HashMap<>();
-        newBasketItems.forEach(i -> newList.put(i.item().id(), i));
+        newBasketItems.forEach(i -> newList.put(i.item().uuid(), i));
         newBasket.setBasketItemList(newList);
         return newBasket;
     }
@@ -86,7 +81,7 @@ public class Basket {
     }
 
     private boolean basketContains(MenuItem menuItem) {
-        return this.basketItemList.containsKey(menuItem.id());
+        return this.basketItemList.containsKey(menuItem.uuid());
     }
 
     public void checkout() {

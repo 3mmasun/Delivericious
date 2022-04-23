@@ -22,19 +22,19 @@ class BasketTest {
     @Test
     void testAddTomatoSoup(){
         MenuItem item = new MenuItem("Tomato Soup");
-        assertEquals(item.id(), basket.add(item));
+        assertEquals(item.uuid(), basket.add(item));
     }
 
     @Test
     void testAddItemWithPriceAndCategory() {
         MenuItem item = seaFoodSalad();
-        assertEquals(item.id(), basket.add(item));
+        assertEquals(item.uuid(), basket.add(item));
     }
 
     @Test
     void testAddThreeChocolateIcecream() {
         MenuItem item = chocolateIceCream();
-        assertEquals(item.id(), basket.addWithQuantity(item, 3));
+        assertEquals(item.uuid(), basket.addWithQuantity(item, 3));
         assertEquals(12.0, basket.totalPrice());
     }
 
@@ -52,7 +52,7 @@ class BasketTest {
     void testDuplicateBasket() {
         basket.addWithQuantity(chocolateIceCream(), 3);
         Basket newBasket = basket.repeat();
-        assertNotEquals(basket.id(), newBasket.id());
+        assertNotEquals(basket.uuid(), newBasket.uuid());
         assertEquals(basket.totalPrice(), newBasket.totalPrice());
     }
 
@@ -68,7 +68,7 @@ class BasketTest {
         basket.addWithQuantity(chocolateIceCream(), 100);
         BasketHashMapRepository basketHashMapRepository = new BasketHashMapRepository();
         basketHashMapRepository.save(basket);
-        assertEquals(basket.id(), basketHashMapRepository.getBasket(basket.id()).id());
+        assertEquals(basket.uuid(), basketHashMapRepository.getBasket(basket.uuid()).uuid());
     }
 
     @Test

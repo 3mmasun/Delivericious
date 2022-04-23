@@ -14,7 +14,7 @@ public class BasketHashMapRepository implements BasketRepository {
 
     @Override
     public void save(Basket basket) {
-        this.baskets.put(basket.id(), basket);
+        this.baskets.put(basket.uuid(), basket);
     }
 
     @Override

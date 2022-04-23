@@ -6,12 +6,12 @@ public class BasketCheckoutEvent extends Event {
     private final Basket basket;
 
     public BasketCheckoutEvent(Basket basket) {
-        this.uuid = basket.id();
+        super(basket);
         this.basket = basket;
     }
 
     @Override
     public String toMessage() {
-        return String.format("Checkout completed for basket %s", basket.id());
+        return String.format("Checkout completed for basket %s", basket.uuid());
     }
 }
