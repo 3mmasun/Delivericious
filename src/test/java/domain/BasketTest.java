@@ -1,7 +1,7 @@
 package domain;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import domain.exception.BasketExceedMaxQuantityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +46,12 @@ class BasketTest {
         basket.addWithQuantity(item, 3);
         Basket newBasket = basket.repeat();
         assertNotEquals(basket.id(), newBasket.id());
+    }
+
+    @Test
+    void testMaxBasketItemQuatity100() {
+        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        basket.addWithQuantity(item, 100);
+        assertThrows(BasketExceedMaxQuantityException.class, ()->basket.addWithQuantity(item, 1));
     }
 }

@@ -14,3 +14,14 @@
 4. Remove **3** chocolate ice cream
 5. Duplicate basket
 6. Calculate total price
+7. Max basket quantity should not exceed 100 (assume it refers to whole basket)
+
+todo:
+implement money
+implement id for basket
+
+Entity vs Value Object
+- immutability
+- identity, or id
+- internal state change due to behavior
+
