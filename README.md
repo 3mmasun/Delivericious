@@ -16,6 +16,9 @@
 6. Calculate total price
 7. Max basket quantity should not exceed 100 (assume it refers to whole basket)
 8. Save basket as hashmap <id, data>
+9. if basket has more than 5 soup, suggest coupon DELIVERICIOUS_10 WITH 10% discount percentage if available
+   (assuming available coupons as input, assuming tomato soup is is a SOUP category)
+   (Implement in a new test case)
 
 todo:
 implement money
@@ -34,5 +37,5 @@ Aggregate
 Repository
 - separate data storage concern out of aggregate root
 - aggregate root will only require changes when there's business rule changes
-- 
+- diff vs springboot, repository in DDD is a concept, not just save 1 table but all related entities too
 
