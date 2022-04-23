@@ -1,4 +1,7 @@
-package domain.integration;
+package integration;
+
+import domain.event.Event;
+import domain.event.Publisher;
 
 public class EventPublisher implements Publisher {
     private static EventPublisher instance;

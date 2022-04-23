@@ -1,9 +1,9 @@
-package domain.integration;
+package domain.event;
 
 import java.util.UUID;
 
 public abstract class Event {
     protected UUID uuid;
 
-    abstract String toMessage();
+    public abstract String toMessage();
 }

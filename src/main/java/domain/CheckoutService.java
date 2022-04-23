@@ -1,11 +1,10 @@
 package domain;
 
 import domain.exception.BasketCheckoutException;
-import domain.integration.BasketCheckoutEvent;
-import domain.integration.Event;
-import domain.integration.Publisher;
+import domain.event.BasketCheckoutEvent;
+import domain.event.Event;
+import domain.event.Publisher;
 import domain.model.Basket;
-import domain.repository.BasketRepository;
 
 public class CheckoutService {
     private final Publisher publisher;

@@ -1,4 +1,4 @@
-package domain.integration;
+package domain.event;
 
 import domain.model.Basket;
 
@@ -11,7 +11,7 @@ public class BasketCheckoutEvent extends Event {
     }
 
     @Override
-    String toMessage() {
+    public String toMessage() {
         return String.format("Checkout completed for basket %s", basket.id());
     }
 }
