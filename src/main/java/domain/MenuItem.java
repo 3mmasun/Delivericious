@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public class MenuItem {
     private String name;
-    private double price;
     private final UUID id;
+    private Money money;
 
     public MenuItem() {
         this.id = UUID.randomUUID();
@@ -14,7 +14,7 @@ public class MenuItem {
     public MenuItem(String name, double price) {
         this();
         this.name = name;
-        this.price = price;
+        this.money = new Money(Currency.SGD, price);
     }
 
     public MenuItem(String name) {
@@ -22,12 +22,8 @@ public class MenuItem {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public double getPrice() {
-        return price;
+        return this.money.getAmount();
     }
 
     public UUID id() {
