@@ -34,7 +34,7 @@ public class BasketItem {
         return this.menuItem.price() * this.quantity;
     }
 
-    public Category itemCategory(){
+    public MenuItemCategory itemCategory(){
         return menuItem.category();
     }
 }

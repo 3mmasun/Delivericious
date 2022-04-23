@@ -6,7 +6,7 @@ public class MenuItem {
     private String name;
     private final UUID id;
     private Money money;
-    private Category category;
+    private MenuItemCategory category;
 
     public MenuItem() {
         this.id = UUID.randomUUID();
@@ -20,10 +20,10 @@ public class MenuItem {
     public MenuItem(String name, double price) {
         this(name);
         this.money = new Money(Currency.SGD, price);
-        this.category = Category.NOT_SPECIFIED;
+        this.category = MenuItemCategory.NOT_SPECIFIED;
     }
 
-    public MenuItem(String name, double price, Category category) {
+    public MenuItem(String name, double price, MenuItemCategory category) {
         this(name, price);
         this.category = category;
     }
@@ -36,7 +36,7 @@ public class MenuItem {
         return id;
     }
 
-    public Category category() {
+    public MenuItemCategory category() {
         return category;
     }
 }

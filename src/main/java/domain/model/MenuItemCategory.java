@@ -1,6 +1,6 @@
 package domain.model;
 
-public enum Category {
+public enum MenuItemCategory {
     SOUP,
     NOT_SPECIFIED
 }
