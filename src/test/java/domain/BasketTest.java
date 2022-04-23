@@ -3,6 +3,8 @@ package domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import domain.exception.BasketExceedMaxQuantityException;
+import domain.integration.EventPublisher;
+import domain.integration.Publisher;
 import domain.model.Basket;
 import domain.model.MenuItemCategory;
 import domain.model.Coupon;
@@ -84,7 +86,11 @@ class BasketTest {
 
     @Test
     void testCheckoutBasket() {
-        basket.checkout();
+        MenuItem item = new MenuItem("Sea Food salad", 12.0, MenuItemCategory.SOUP);
+        basket.addWithQuantity(item, 5);
+        Publisher publisher = new EventPublisher();
+        CheckoutService checkoutService = new CheckoutService(publisher, new PaymentService());
+        checkoutService.checkout(basket);
         assertTrue(basket.checkOutCompleted());
     }
 }
