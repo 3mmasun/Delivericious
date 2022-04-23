@@ -3,6 +3,7 @@ package domain;
 import static org.junit.jupiter.api.Assertions.*;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.model.Basket;
+import domain.model.Category;
 import domain.model.MenuItem;
 import persistance.BasketHashMapRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +24,8 @@ class BasketTest {
     }
 
     @Test
-    void testAddItemWithPrice() {
-        MenuItem item = new MenuItem("Sea Food salad", 12.0);
+    void testAddItemWithPriceAndCategory() {
+        MenuItem item = new MenuItem("Sea Food salad", 12.0, Category.SOUP);
         assertEquals(item.id(), basket.add(item));
     }
 

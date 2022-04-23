@@ -65,7 +65,7 @@ public class Basket {
 
     public double totalPrice() {
         return basketItemList.values().stream()
-                .map(basketItem -> basketItem.getMenuItem().getPrice() * basketItem.getQuantity())
+                .map(BasketItem::itemTotalPrice)
                 .reduce(0.0, Double::sum);
     }
 

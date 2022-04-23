@@ -1,6 +1,5 @@
 package domain.model;
 
-import java.util.UUID;
 import domain.exception.MenuItemQuantityReduceException;
 
 public class BasketItem {
@@ -20,13 +19,8 @@ public class BasketItem {
         return menuItem;
     }
 
-    public UUID menuItemId() {
-        return menuItem.id();
-    }
-
-    public int increaseQuantity(int quantity) {
+    public void increaseQuantity(int quantity) {
         this.quantity += quantity;
-        return this.quantity;
     }
 
     public int reduceQuantity(int quantity) {
@@ -34,5 +28,9 @@ public class BasketItem {
             throw new MenuItemQuantityReduceException();
         this.quantity -= quantity;
         return this.quantity;
+    }
+
+    public double itemTotalPrice(){
+        return this.menuItem.getPrice() * this.quantity;
     }
 }
