@@ -2,6 +2,8 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 import domain.exception.BasketExceedMaxQuantityException;
+import domain.model.Basket;
+import domain.model.MenuItem;
 import domain.repository.BasketRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

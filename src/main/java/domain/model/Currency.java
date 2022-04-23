@@ -1,4 +1,4 @@
-package domain;
+package domain.model;
 
 public enum Currency {
     SGD

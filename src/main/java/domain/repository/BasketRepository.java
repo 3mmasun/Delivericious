@@ -2,7 +2,7 @@ package domain.repository;
 
 import java.util.HashMap;
 import java.util.UUID;
-import domain.Basket;
+import domain.model.Basket;
 
 public class BasketRepository {
     private final HashMap<UUID, Basket> baskets;
