@@ -41,3 +41,6 @@ Repository
 - aggregate root will only require changes when there's business rule changes
 - diff vs springboot, repository in DDD is a concept, not just save 1 table but all related entities too
 
+Domain Service
+- orchestrate funtionality across numerous aggregates
+- 

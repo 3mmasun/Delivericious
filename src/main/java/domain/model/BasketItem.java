@@ -33,4 +33,8 @@ public class BasketItem {
     public double itemTotalPrice(){
         return this.menuItem.getPrice() * this.quantity;
     }
+
+    public Category itemCategory(){
+        return menuItem.getCategory();
+    }
 }

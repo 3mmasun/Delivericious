@@ -1,9 +1,11 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.model.Basket;
 import domain.model.Category;
+import domain.model.Coupon;
 import domain.model.MenuItem;
 import persistance.BasketHashMapRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,5 +71,14 @@ class BasketTest {
         BasketHashMapRepository basketHashMapRepository = new BasketHashMapRepository();
         basketHashMapRepository.save(basket);
         assertEquals(basket.id(), basketHashMapRepository.getBasket(basket.id()).id());
+    }
+
+    @Test
+    void testSuggestCouponForSoupCategory(){
+        MenuItem item = new MenuItem("Sea Food salad", 12.0, Category.SOUP);
+        basket.addWithQuantity(item, 5);
+        Coupon coupon1 = new Coupon("DELIVERICIOUS_10", 10.0);
+        CouponService couponService = new CouponService(Arrays.asList(coupon1));
+        assertTrue(couponService.suggestCoupon(basket).contains(coupon1));
     }
 }

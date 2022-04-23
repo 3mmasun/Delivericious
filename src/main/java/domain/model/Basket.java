@@ -2,6 +2,7 @@ package domain.model;
 
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.exception.MenuItemNotInBasketException;
@@ -12,13 +13,17 @@ public class Basket {
     private static final int DEFAULT_QUANTITY = 1;
     private static final int MAX_QUANTITY = 100;
 
-    public UUID id() {
-        return id;
-    }
-
     public Basket() {
         this.id = UUID.randomUUID();
         this.basketItemList = new HashMap<>();
+    }
+
+    public Collection<BasketItem> basketItems() {
+        return this.basketItemList.values();
+    }
+
+    public UUID id() {
+        return id;
     }
 
     public void setBasketItemList(Map<UUID, BasketItem> basketItemList) {

@@ -32,9 +32,11 @@ public class MenuItem {
         return this.money.getAmount();
     }
 
-
-
     public UUID id() {
         return id;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }
