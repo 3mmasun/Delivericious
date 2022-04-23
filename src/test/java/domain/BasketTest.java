@@ -9,7 +9,7 @@ import domain.repository.CouponRepository;
 import integration.EventPublisher;
 import domain.event.Publisher;
 import domain.model.*;
-import persistance.BasketHashMapRepository;
+import persistance.SimpleBasketRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import persistance.SimpleCouponRepository;
@@ -69,9 +69,9 @@ class BasketTest {
     @Test
     void testSaveBasket() {
         basket.addWithQuantity(chocolateIceCream(), 100);
-        BasketHashMapRepository basketHashMapRepository = new BasketHashMapRepository();
-        basketHashMapRepository.save(basket);
-        assertEquals(basket.uuid(), basketHashMapRepository.getBasket(basket.uuid()).uuid());
+        SimpleBasketRepository simpleBasketRepository = new SimpleBasketRepository();
+        simpleBasketRepository.save(basket);
+        assertEquals(basket.uuid(), simpleBasketRepository.getBasket(basket.uuid()).uuid());
     }
 
     @Test

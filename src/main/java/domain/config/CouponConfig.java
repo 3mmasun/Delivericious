@@ -5,24 +5,24 @@ import domain.model.MenuItemCategory;
 
 public class CouponConfig {
     private final MenuItemCategory category;
-    private final int minApplicableQuantity;
+    private final int minEligibleQuantity;
     private final CouponCode couponCode;
 
-    public CouponConfig(MenuItemCategory category, int minApplicableQuantity, CouponCode couponCode) {
+    public CouponConfig(MenuItemCategory category, int minEligibleQuantity, CouponCode couponCode) {
         this.category = category;
-        this.minApplicableQuantity = minApplicableQuantity;
+        this.minEligibleQuantity = minEligibleQuantity;
         this.couponCode = couponCode;
     }
 
-    public MenuItemCategory getCategory() {
+    public MenuItemCategory category() {
         return category;
     }
 
-    public int getMinApplicableQuantity() {
-        return minApplicableQuantity;
+    public int minEligibleQuantity() {
+        return minEligibleQuantity;
     }
 
-    public CouponCode getCouponCode() {
+    public CouponCode couponCode() {
         return couponCode;
     }
 }

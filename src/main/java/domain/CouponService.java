@@ -19,9 +19,9 @@ public class CouponService {
     public List<Coupon> suggestCoupon(Basket basket) {
         List<Coupon> result = new ArrayList<>();
         couponConfigs.forEach(config -> {
-            int categoryQuantity = basket.totalQuantityByCategory(config.getCategory());
-            if(categoryQuantity >= config.getMinApplicableQuantity()){
-                result.addAll(couponRepository.getCouponsByCode(config.getCouponCode()));
+            int categoryQuantity = basket.totalQuantityByCategory(config.category());
+            if(categoryQuantity >= config.minEligibleQuantity()){
+                result.addAll(couponRepository.getCouponsByCode(config.couponCode()));
             }
         });
         return result;

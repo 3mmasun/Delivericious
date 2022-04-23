@@ -5,10 +5,10 @@ import java.util.UUID;
 import domain.model.Basket;
 import domain.repository.BasketRepository;
 
-public class BasketHashMapRepository implements BasketRepository {
+public class SimpleBasketRepository implements BasketRepository {
     private final HashMap<UUID, Basket> baskets;
 
-    public BasketHashMapRepository() {
+    public SimpleBasketRepository() {
         this.baskets = new HashMap<>();
     }
 
