@@ -32,7 +32,7 @@ public class Basket extends DelivericiousEntity {
     }
 
     public UUID addWithQuantity(MenuItem menuItem, int quantity) {
-        if (totalQuantity() == MAX_QUANTITY)
+        if (totalQuantity() + quantity > MAX_QUANTITY)
             throw new BasketExceedMaxQuantityException();
         if (basketContains(menuItem))
             this.basketItemList.get(menuItem.uuid()).increaseQuantity(quantity);
@@ -92,7 +92,9 @@ public class Basket extends DelivericiousEntity {
     }
 
     private Integer totalQuantity() {
-        return this.basketItemList.values().stream().map(BasketItem::itemQuantity).reduce(0, Integer::sum);
+        return this.basketItemList.values().stream()
+                .map(BasketItem::itemQuantity)
+                .reduce(0, Integer::sum);
     }
 
     private boolean basketContains(MenuItem menuItem) {

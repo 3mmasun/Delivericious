@@ -78,10 +78,12 @@ class BasketTest {
     void testSuggestCouponForSoupCategory(){
         basket.addWithQuantity(seaFoodSalad(), 5);
         CouponRepository couponRepository = new SimpleCouponRepository();
+        CouponConfig soupCouponConfig = new CouponConfig(MenuItemCategory.SOUP, 5, CouponCode.DELIVERICIOUS_10);
+        CouponService couponService = new CouponService(couponRepository, List.of(soupCouponConfig));
+
         Coupon coupon1 = new Coupon(CouponCode.DELIVERICIOUS_10, 10.0);
         couponRepository.addCoupon(coupon1);
-        CouponConfig soupCoupon = new CouponConfig(MenuItemCategory.SOUP, 5, CouponCode.DELIVERICIOUS_10);
-        CouponService couponService = new CouponService(couponRepository, List.of(soupCoupon));
+
         assertTrue(couponService.suggestCoupon(basket).contains(coupon1));
     }
 
