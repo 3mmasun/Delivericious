@@ -1,16 +1,12 @@
 package domain;
 
 public class BasketItem {
-    private MenuItem menuItem;
-    private int quantity;
-
-    public BasketItem(MenuItem menuItem) {
-        this(menuItem, 1);
-    }
+    private final MenuItem menuItem;
+    private int quantity = 0;
 
     public BasketItem(MenuItem menuItem, int quantity) {
         this.menuItem = menuItem;
-        this.quantity = quantity;
+        increaseBy(quantity);
     }
 
     public int getQuantity() {
@@ -19,5 +15,9 @@ public class BasketItem {
 
     public MenuItem getMenuItem() {
         return menuItem;
+    }
+
+    private void increaseBy(int quantity) {
+        this.quantity += quantity;
     }
 }
