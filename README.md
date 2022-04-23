@@ -28,12 +28,14 @@ Entity vs Value Object
 - immutability
 - identity, or id
 - internal state change due to behavior
+
 Aggregate
 - aggregate root
 - strong consistency within `transactional and consistency boundary`, eventual consistency across
 - expose behavior
 - protect internal state
 - aggregate should be saved instead of individual entities
+
 Repository
 - separate data storage concern out of aggregate root
 - aggregate root will only require changes when there's business rule changes
