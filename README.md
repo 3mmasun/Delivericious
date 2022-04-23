@@ -19,7 +19,7 @@
 9. if basket has more than 5 soup, suggest coupon DELIVERICIOUS_10 WITH 10% discount percentage if available
    (assuming available coupons as input, assuming tomato soup is is a SOUP category)
    (Implement in a new test case)
-10. 
+10. when a basket is checked out, status should change
 
 todo:
 implement money
@@ -47,3 +47,10 @@ Domain Service
 - orchestrate functionality across numerous aggregates
 - only operation without a natural place can be in service
 - if operation need to be tracked with ID, then it's an entity not a service
+
+Domain Event
+- produce a data when something important happens
+- other domain or bounded context can react to domain event freely
+- immunitable
+- not deleteable
+- use past tense because event has ALREADY happened

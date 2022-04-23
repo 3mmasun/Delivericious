@@ -8,6 +8,7 @@ import domain.exception.MenuItemNotInBasketException;
 
 public class Basket {
     private Map<UUID, BasketItem> basketItemList;
+    private BasketStatus status;
     private final UUID id;
     private static final short DEFAULT_QUANTITY = 1;
     private static final int MAX_QUANTITY = 100;
@@ -15,6 +16,7 @@ public class Basket {
     public Basket() {
         this.id = UUID.randomUUID();
         this.basketItemList = new HashMap<>();
+        this.status = BasketStatus.NEW;
     }
 
     public Collection<BasketItem> basketItems() {
@@ -85,4 +87,11 @@ public class Basket {
         return this.basketItemList.containsKey(menuItem.id());
     }
 
+    public void checkout() {
+        this.status = BasketStatus.CHECKED_OUT;
+    }
+
+    public boolean checkOutCompleted() {
+        return this.status.equals(BasketStatus.CHECKED_OUT);
+    }
 }
