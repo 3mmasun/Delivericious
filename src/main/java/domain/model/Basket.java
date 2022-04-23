@@ -76,19 +76,26 @@ public class Basket extends DelivericiousEntity {
         return this.basketItemList.size();
     }
 
-    private Integer totalQuantity() {
-        return this.basketItemList.values().stream().map(BasketItem::itemQuantity).reduce(0, Integer::sum);
-    }
-
-    private boolean basketContains(MenuItem menuItem) {
-        return this.basketItemList.containsKey(menuItem.uuid());
-    }
-
     public void checkout() {
         this.status = BasketStatus.CHECKED_OUT;
     }
 
     public boolean checkOutCompleted() {
         return this.status.equals(BasketStatus.CHECKED_OUT);
+    }
+
+    public Integer totalQuantityByCategory(MenuItemCategory category) {
+        return this.basketItems().stream()
+                .filter(basketItem -> basketItem.itemCategory().equals(category))
+                .map(BasketItem::itemQuantity)
+                .reduce(0, Integer::sum);
+    }
+
+    private Integer totalQuantity() {
+        return this.basketItemList.values().stream().map(BasketItem::itemQuantity).reduce(0, Integer::sum);
+    }
+
+    private boolean basketContains(MenuItem menuItem) {
+        return this.basketItemList.containsKey(menuItem.uuid());
     }
 }

@@ -3,13 +3,16 @@ package domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.List;
+import domain.config.CouponConfig;
 import domain.exception.BasketExceedMaxQuantityException;
+import domain.repository.CouponRepository;
 import integration.EventPublisher;
 import domain.event.Publisher;
 import domain.model.*;
 import persistance.BasketHashMapRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistance.SimpleCouponRepository;
 
 class BasketTest {
     private Basket basket;
@@ -74,8 +77,11 @@ class BasketTest {
     @Test
     void testSuggestCouponForSoupCategory(){
         basket.addWithQuantity(seaFoodSalad(), 5);
-        Coupon coupon1 = new Coupon("DELIVERICIOUS_10", 10.0);
-        CouponService couponService = new CouponService(List.of(coupon1));
+        CouponRepository couponRepository = new SimpleCouponRepository();
+        Coupon coupon1 = new Coupon(CouponCode.DELIVERICIOUS_10, 10.0);
+        couponRepository.addCoupon(coupon1);
+        CouponConfig soupCoupon = new CouponConfig(MenuItemCategory.SOUP, 5, CouponCode.DELIVERICIOUS_10);
+        CouponService couponService = new CouponService(couponRepository, List.of(soupCoupon));
         assertTrue(couponService.suggestCoupon(basket).contains(coupon1));
     }
 

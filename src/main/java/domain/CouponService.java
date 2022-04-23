@@ -1,35 +1,30 @@
 package domain;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import domain.model.Basket;
-import domain.model.BasketItem;
-import domain.model.MenuItemCategory;
-import domain.model.Coupon;
+import domain.config.CouponConfig;
+import domain.model.*;
+import domain.repository.CouponRepository;
 
 public class CouponService {
-    private final List<Coupon> coupons;
-    private static final int SOUP_COUPON_MIN_QUANTITY = 5;
+    private final CouponRepository couponRepository;
+    private final List<CouponConfig> couponConfigs;
 
-    public CouponService(List<Coupon> coupons) {
-        this.coupons = coupons;
+    public CouponService(CouponRepository couponRepository,
+                         List<CouponConfig> couponConfigs) {
+        this.couponRepository = couponRepository;
+        this.couponConfigs = couponConfigs;
     }
 
     public List<Coupon> suggestCoupon(Basket basket) {
-        int soupItemQuantity = basket.basketItems().stream()
-                .filter(basketItem -> basketItem.itemCategory().equals(MenuItemCategory.SOUP))
-                .map(BasketItem::itemQuantity)
-                .reduce(0, Integer::sum);
-        if (soupItemQuantity >= SOUP_COUPON_MIN_QUANTITY) {
-            return getCouponByDiscount(10.0);
-        }
-        return Collections.emptyList();
-    }
-
-    private List<Coupon> getCouponByDiscount(double discount) {
-        return this.coupons.stream().filter(coupon -> coupon.discount() == discount)
-                .collect(Collectors.toList());
+        List<Coupon> result = new ArrayList<>();
+        couponConfigs.forEach(config -> {
+            int categoryQuantity = basket.totalQuantityByCategory(config.getCategory());
+            if(categoryQuantity >= config.getMinApplicableQuantity()){
+                result.addAll(couponRepository.getCouponsByCode(config.getCouponCode()));
+            }
+        });
+        return result;
     }
 
 }
