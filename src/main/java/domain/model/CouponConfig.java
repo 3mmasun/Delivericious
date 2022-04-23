@@ -1,7 +1,4 @@
-package domain.config;
-
-import domain.model.CouponCode;
-import domain.model.MenuItemCategory;
+package domain.model;
 
 public class CouponConfig {
     private final MenuItemCategory category;

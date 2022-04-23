@@ -3,7 +3,7 @@ package domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.List;
-import domain.config.CouponConfig;
+import domain.model.CouponConfig;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.repository.CouponRepository;
 import integration.EventPublisher;

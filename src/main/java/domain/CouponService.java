@@ -2,7 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import domain.config.CouponConfig;
+import domain.model.CouponConfig;
 import domain.model.*;
 import domain.repository.CouponRepository;
 
