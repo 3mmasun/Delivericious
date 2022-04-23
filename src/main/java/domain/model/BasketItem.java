@@ -1,5 +1,6 @@
 package domain.model;
 
+import java.math.BigDecimal;
 import domain.exception.MenuItemQuantityReduceException;
 
 public class BasketItem {
@@ -30,8 +31,8 @@ public class BasketItem {
         return quantity;
     }
 
-    public double itemTotalPrice(){
-        return this.menuItem.price() * this.quantity;
+    public BigDecimal itemTotalPrice(){
+        return this.menuItem.price().multiply(BigDecimal.valueOf(quantity));
     }
 
     public MenuItemCategory itemCategory(){

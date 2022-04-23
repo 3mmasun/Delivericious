@@ -1,5 +1,6 @@
 package domain.model;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class MenuItem {
@@ -17,18 +18,18 @@ public class MenuItem {
         this.name = name;
     }
 
-    public MenuItem(String name, double price) {
+    public MenuItem(String name, BigDecimal price) {
         this(name);
         this.money = new Money(Currency.SGD, price);
         this.category = MenuItemCategory.NOT_SPECIFIED;
     }
 
-    public MenuItem(String name, double price, MenuItemCategory category) {
+    public MenuItem(String name, BigDecimal price, MenuItemCategory category) {
         this(name, price);
         this.category = category;
     }
 
-    public double price() {
+    public BigDecimal price() {
         return this.money.getAmount();
     }
 

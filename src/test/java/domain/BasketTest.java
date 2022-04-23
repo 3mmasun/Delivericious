@@ -1,14 +1,12 @@
 package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigDecimal;
 import java.util.List;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.integration.EventPublisher;
 import domain.integration.Publisher;
-import domain.model.Basket;
-import domain.model.MenuItemCategory;
-import domain.model.Coupon;
-import domain.model.MenuItem;
+import domain.model.*;
 import persistance.BasketHashMapRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,20 +27,20 @@ class BasketTest {
 
     @Test
     void testAddItemWithPriceAndCategory() {
-        MenuItem item = new MenuItem("Sea Food salad", 12.0, MenuItemCategory.SOUP);
+        MenuItem item = seaFoodSalad();
         assertEquals(item.id(), basket.add(item));
     }
 
     @Test
     void testAddThreeChocolateIcecream() {
-        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        MenuItem item = chocolateIceCream();
         assertEquals(item.id(), basket.addWithQuantity(item, 3));
         assertEquals(12.0, basket.totalPrice());
     }
 
     @Test
     void testRemove() {
-        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        MenuItem item = chocolateIceCream();
         basket.addWithQuantity(item, 3);
         basket.remove(item);
         basket.remove(item);
@@ -52,8 +50,7 @@ class BasketTest {
 
     @Test
     void testDuplicateBasket() {
-        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
-        basket.addWithQuantity(item, 3);
+        basket.addWithQuantity(chocolateIceCream(), 3);
         Basket newBasket = basket.repeat();
         assertNotEquals(basket.id(), newBasket.id());
         assertEquals(basket.totalPrice(), newBasket.totalPrice());
@@ -61,15 +58,14 @@ class BasketTest {
 
     @Test
     void testMaxBasketItemQuatity100() {
-        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        MenuItem item = chocolateIceCream();
         basket.addWithQuantity(item, 100);
         assertThrows(BasketExceedMaxQuantityException.class, ()->basket.addWithQuantity(item, 1));
     }
 
     @Test
     void testSaveBasket() {
-        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
-        basket.addWithQuantity(item, 100);
+        basket.addWithQuantity(chocolateIceCream(), 100);
         BasketHashMapRepository basketHashMapRepository = new BasketHashMapRepository();
         basketHashMapRepository.save(basket);
         assertEquals(basket.id(), basketHashMapRepository.getBasket(basket.id()).id());
@@ -77,8 +73,7 @@ class BasketTest {
 
     @Test
     void testSuggestCouponForSoupCategory(){
-        MenuItem item = new MenuItem("Sea Food salad", 12.0, MenuItemCategory.SOUP);
-        basket.addWithQuantity(item, 5);
+        basket.addWithQuantity(seaFoodSalad(), 5);
         Coupon coupon1 = new Coupon("DELIVERICIOUS_10", 10.0);
         CouponService couponService = new CouponService(List.of(coupon1));
         assertTrue(couponService.suggestCoupon(basket).contains(coupon1));
@@ -86,11 +81,18 @@ class BasketTest {
 
     @Test
     void testCheckoutBasket() {
-        MenuItem item = new MenuItem("Sea Food salad", 12.0, MenuItemCategory.SOUP);
-        basket.addWithQuantity(item, 5);
+        basket.addWithQuantity(seaFoodSalad(), 5);
         Publisher publisher = new EventPublisher();
         CheckoutService checkoutService = new CheckoutService(publisher, new PaymentService());
         checkoutService.checkout(basket);
         assertTrue(basket.checkOutCompleted());
+    }
+
+    private MenuItem chocolateIceCream() {
+        return new MenuItem("Chocolate ice cream", BigDecimal.valueOf(4.0));
+    }
+
+    private MenuItem seaFoodSalad() {
+        return new MenuItem("Sea Food salad", BigDecimal.valueOf(12.0), MenuItemCategory.SOUP);
     }
 }

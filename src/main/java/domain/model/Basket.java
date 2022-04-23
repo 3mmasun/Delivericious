@@ -1,5 +1,6 @@
 package domain.model;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +73,7 @@ public class Basket {
     public double totalPrice() {
         return basketItemList.values().stream()
                 .map(BasketItem::itemTotalPrice)
+                .map(BigDecimal::doubleValue)
                 .reduce(0.0, Double::sum);
     }
 
