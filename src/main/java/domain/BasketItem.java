@@ -1,12 +1,14 @@
 package domain;
 
+import domain.exception.MenuItemQuantityReduceException;
+
 public class BasketItem {
     private final MenuItem menuItem;
     private int quantity = 0;
 
     public BasketItem(MenuItem menuItem, int quantity) {
         this.menuItem = menuItem;
-        increaseBy(quantity);
+        increaseQuantity(quantity);
     }
 
     public int getQuantity() {
@@ -17,7 +19,15 @@ public class BasketItem {
         return menuItem;
     }
 
-    private void increaseBy(int quantity) {
+    public int increaseQuantity(int quantity) {
         this.quantity += quantity;
+        return this.quantity;
+    }
+
+    public int reduceQuantity(int quantity) {
+        if (this.quantity < quantity)
+            throw new MenuItemQuantityReduceException();
+        this.quantity -= quantity;
+        return this.quantity;
     }
 }

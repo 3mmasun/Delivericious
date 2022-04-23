@@ -33,6 +33,14 @@ class BasketTest {
     }
 
     @Test
+    void testRemove() {
+        MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
+        basket.addWithQuantity(item, 3);
+        basket.remove(item);
+        assertEquals(8.0, basket.totalPrice());
+    }
+
+    @Test
     void testDuplicateBasket() {
         MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
         basket.addWithQuantity(item, 3);

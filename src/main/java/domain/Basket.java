@@ -3,12 +3,12 @@ package domain;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
+import domain.exception.MenuItemNotInBasketException;
 
 public class Basket {
-    private List<BasketItem> basketItems;
     private Map<UUID, BasketItem> basketItemList;
     private final UUID id;
-    private static final short DEFAULT_QUANTITY = 1;
+    private static final int DEFAULT_QUANTITY = 1;
 
     public UUID id() {
         return id;
@@ -16,12 +16,11 @@ public class Basket {
 
     public Basket() {
         this.id = UUID.randomUUID();
-        this.basketItems = new ArrayList<>();
         this.basketItemList = new HashMap<>();
     }
 
-    public void setBasketItems(List<BasketItem> basketItems) {
-        this.basketItems = basketItems;
+    public void setBasketItemList(Map<UUID, BasketItem> basketItemList) {
+        this.basketItemList = basketItemList;
     }
 
     public UUID add(MenuItem menuItem) {
@@ -29,23 +28,44 @@ public class Basket {
     }
 
     public UUID addWithQuantity(MenuItem menuItem, int quantity) {
-        BasketItem basketItem = new BasketItem(menuItem, quantity);
-        this.basketItems.add(basketItem);
+        if (basketContains(menuItem))
+            this.basketItemList.get(menuItem.id()).increaseQuantity(quantity);
+        else {
+            BasketItem basketItem = new BasketItem(menuItem, quantity);
+            this.basketItemList.put(menuItem.id(), basketItem);
+        }
         return menuItem.id();
+    }
+
+    private boolean basketContains(MenuItem menuItem) {
+        return this.basketItemList.containsKey(menuItem.id());
     }
 
     public Basket repeat() {
         Basket newBasket = new Basket();
-        List<BasketItem> newBasketItems = this.basketItems.stream()
+        List<BasketItem> newBasketItems = this.basketItemList.values().stream()
                 .map(i -> new BasketItem(i.getMenuItem(), i.getQuantity()))
                 .collect(Collectors.toList());
-        newBasket.setBasketItems(newBasketItems);
+        Map<UUID, BasketItem> newList = new HashMap<>();
+        newBasketItems.stream().forEach(i -> newList.put(i.getMenuItem().id(), i));
+        newBasket.setBasketItemList(newList);
         return newBasket;
     }
 
     public double totalPrice() {
-        return basketItems.stream()
+        return basketItemList.values().stream()
                 .map(basketItem -> basketItem.getMenuItem().getPrice() * basketItem.getQuantity())
                 .reduce(0.0, Double::sum);
+    }
+
+    public void remove(MenuItem menuItem) {
+        if (basketContains(menuItem)) {
+            int itemQuantity = this.basketItemList.get(menuItem.id()).reduceQuantity(DEFAULT_QUANTITY);
+            if (itemQuantity == 0) {
+                this.basketItemList.remove(menuItem.id());
+            }
+        }
+        else
+            throw new MenuItemNotInBasketException();
     }
 }
