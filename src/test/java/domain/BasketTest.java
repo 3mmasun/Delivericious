@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import domain.exception.BasketExceedMaxQuantityException;
 import domain.model.Basket;
 import domain.model.MenuItem;
-import domain.repository.BasketRepository;
+import persistance.BasketHashMapRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -65,8 +65,8 @@ class BasketTest {
     void testSaveBasket() {
         MenuItem item = new MenuItem("Chocolate ice cream", 4.0);
         basket.addWithQuantity(item, 100);
-        BasketRepository basketRepository = new BasketRepository();
-        basketRepository.save(basket);
-        assertEquals(basket.id(), basketRepository.retrieve(basket.id()).id());
+        BasketHashMapRepository basketHashMapRepository = new BasketHashMapRepository();
+        basketHashMapRepository.save(basket);
+        assertEquals(basket.id(), basketHashMapRepository.getBasket(basket.id()).id());
     }
 }
